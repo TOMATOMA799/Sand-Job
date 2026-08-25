@@ -1,0 +1,24 @@
+{
+  "name": "signin-app",
+  "version": "1.0.0",
+  "description": "Simple username/password sign-in against per-user env credentials",
+  "main": "server.js",
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.22.1",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "jsonwebtoken": "^9.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
