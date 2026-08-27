@@ -5,19 +5,15 @@ import ServerSelect from './components/ServerSelect'
 import Channels from './components/Channels'
 import ChatBox from './components/ChatBox'
 import Users from './components/Users'
-import PopupManager from './popups/PopupManager'
 
 const DirectMessages = () => {
   const { user } = useAuth()
-  const [data, setData] = useState([getDefaultServer()])
+  const [data] = useState([getDefaultServer()])
   const [selected, setSelected] = useState({
     serverID: data[0]._id,
     channelID: data[0].channels[0]._id,
     focus: window.innerWidth < 640 ? 'left' : 'all',
   })
-  const [popup, setPopup] = useState({ showPopup: false })
-  const [filterMenu, setFilterMenu] = useState({})
-  const [input, setInput] = useState({})
 
   if (!user) {
     return (
@@ -29,9 +25,7 @@ const DirectMessages = () => {
 
   const selectedServer = data.find((server) => server._id === selected.serverID) || ''
 
-  function setServer(updatedServer) {
-    setData((prev) => prev.map((server) => server._id === updatedServer._id ? updatedServer : server))
-  }
+  function setServer() {}
 
   const role = selectedServer
     ? selectedServer.serverRoles.find((r) => r.name === selectedServer.serverUsers.find((u) => u.userId === user.userId)?.roles[0])
@@ -45,13 +39,8 @@ const DirectMessages = () => {
         selected={selected}
         setSelected={setSelected}
         selectedServer={selectedServer}
-        setData={setData}
         user={user}
-        popup={popup}
-        setPopup={setPopup}
         access={access}
-        input={input}
-        setInput={setInput}
       />
       <ChatBox
         selected={selected}
@@ -59,24 +48,9 @@ const DirectMessages = () => {
         selectedServer={selectedServer}
         setServer={setServer}
         access={access}
-        popup={popup}
-        setPopup={setPopup}
         user={user}
       />
       <Users selectedServer={selectedServer} selected={selected} setSelected={setSelected} />
-      <PopupManager
-        popup={popup}
-        setPopup={setPopup}
-        selectedServer={selectedServer}
-        selected={selected}
-        setSelected={setSelected}
-        input={input}
-        setInput={setInput}
-        filterMenu={filterMenu}
-        setFilterMenu={setFilterMenu}
-        access={access}
-        user={user}
-      />
     </div>
   )
 }
